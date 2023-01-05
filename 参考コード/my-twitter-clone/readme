@@ -1,0 +1,23 @@
+my-twitter-clone
+├── css
+│   └── style.css
+├── img
+│   ├── icon-fav.png
+│   ├── icon-follow.png
+│   ├── icon-like.png
+│   ├── icon-retweet.png
+│   ├── icon-unfav.png
+│   ├── icon-unfollow.png
+│   └── icon-unlike.png
+├── index.php
+├── signin.php
+├── signout.php
+├── signup.php
+├── timeline.php
+├── user.php
+└── var
+    └── lib
+        ├── follow.php
+        ├── like.php
+        ├── tweet.php
+        └── user.php
