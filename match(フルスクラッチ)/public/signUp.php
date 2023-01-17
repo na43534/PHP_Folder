@@ -12,15 +12,24 @@
         <!-- <label for="email">Email:</label> -->
         <input type="email" id="email" name="email">
         <div class="#">
-          <!-- ここエラーメッセージ差し込む。セッションで管理 -->
+          <?php
+            if(!empty($err_msg['email'])) echo $err_msg['email'];
+          ?>
         </div>
         <br>
-        <!-- <label for="password">Password:</label> -->
         <input type="password" id="password" name="password">
         <div class="#">
-          <!-- ここエラーメッセージ差し込む。セッションで管理 -->
+          <?php
+            if(!empty($err_msg['password'])) echo $err_msg['password'];
+          ?>
         </div>
+        <input type="password" id="password_re" name="password_re">
         <br>
+        <div class="#">
+          <?php
+            if(!empty($err_msg['password_re'])) echo $err_msg['password_re'];
+          ?>
+        </div>
         <input type="submit" value="SignUp">
 
       </form>
