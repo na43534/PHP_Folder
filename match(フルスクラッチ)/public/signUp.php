@@ -6,7 +6,7 @@
   <div>
     <section>
       <a href="./index.php">ホームへ戻る</a>
-
+      <div>signUp</div>
       <form action="../private/signUpFunction.php" method="post">
 
         <!-- <label for="email">Email:</label> -->
