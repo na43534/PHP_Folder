@@ -25,6 +25,10 @@
         </div>
         <input type="submit" value="Login">
 
+        <label>
+          <input type="checkbox" name="pass_save">次回ログインを省略する
+        </label>
+
       </form>
 
     </section>
