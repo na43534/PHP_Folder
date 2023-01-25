@@ -61,7 +61,7 @@
           $stmt = $pdo->prepare($sql);
           $stmt->bindValue(":email", $email, PDO::PARAM_STR);
           $stmt->bindValue(":pass", $password, PDO::PARAM_STR);
-          $stmt->bindValue(":create_date", time(), PDO::PARAM_INT);
+          $stmt->bindValue(":create_date", date('Y-m-d H:i:s'), PDO::PARAM_STR);
           $result = $stmt->execute();
         } catch (Exception $e) {
           error_log('エラー発生:' . $e->getMessage());
