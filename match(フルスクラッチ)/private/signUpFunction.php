@@ -13,9 +13,6 @@
   debug('アカウント作成ページ');
   debug('「「「「「「「「「「「「「');
 
-  //パスワードのストレッチング回数
-  $cost = 12;
-
   $email = $_POST['email'];
   $password = $_POST['password'];
   $password_re = $_POST['password_re'];
@@ -60,20 +57,18 @@
 
         try {
           $pdo = new PDO(DSN, DB_USERNAME, DB_PASSWORD);
-          $stmt = $pdo->prepare('INSERT INTO users  (email,password,create_date) VALUES(:email,:pass,:create_date)',
-          array(':email' => $email,':pass' => $password,':create_date' => date('Y-m-d H:i:s')));
-          $stmt->execute(array(':email' => $email,
-          // password_hashは第二引数にPASSWORD_DEFAULTを指定することでハッシュ化もストレッチングも適宜やってくれるかもしれないので調べる。
-          ':pass' => password_hash($password, PASSWORD_BCRYPT, ["cost" => $cost]),
-          ':create_date' => date('Y-m-d H:i:s')));
-          $user = $stmt->fetch();
-          debug($user);
+          $sql = 'INSERT INTO users (email,password,create_date) VALUES(:email,:pass,:create_date)';
+          $stmt = $pdo->prepare($sql);
+          $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+          $stmt->bindValue(":pass", $password, PDO::PARAM_STR);
+          $stmt->bindValue(":create_date", time(), PDO::PARAM_INT);
+          $result = $stmt->execute();
         } catch (Exception $e) {
           error_log('エラー発生:' . $e->getMessage());
         }
 
         // クエリ成功の場合
-        if($user){
+        if($result){
           debug('セッション情報を更新します。');
           //ログイン有効期限（デフォルトを１時間とする）
           $sesLimit = 60*60;
@@ -81,7 +76,7 @@
           $_SESSION['login_date'] = time();
           $_SESSION['login_limit'] = $sesLimit;
           // ユーザーIDを格納
-          $_SESSION['user_id'] = $user['id'];
+          $_SESSION['user_id'] = $pdo->lastInsertId();
           debug('セッション変数の中身：'.print_r($_SESSION,true));
           header('Location: ../public/timeline.php');
           exit;
@@ -92,6 +87,8 @@
           header('Location: ../public/index.php');
         }
       }
+
+
     }elseif(empty($err_msg)){
       debug('バリテーションエラーです。');
       header('Location: ../public/index.php');

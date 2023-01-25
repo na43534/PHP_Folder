@@ -9,7 +9,7 @@
       <div>login</div>
       <form action="../private/loginFunction.php" method="post">
 
-        <!-- <label for="email">Email:</label> -->
+        <label for="email">Email:</label>
         <input type="email" id="email" name="email">
         <div class="#">
           <?php
@@ -25,9 +25,9 @@
         </div>
         <input type="submit" value="Login">
 
-        <label>
+        <!-- <label>
           <input type="checkbox" name="pass_save">次回ログインを省略する
-        </label>
+        </label> -->
 
       </form>
 
