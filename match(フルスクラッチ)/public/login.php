@@ -25,10 +25,10 @@
         </div>
         <input type="submit" value="Login">
 
-        <!-- <label>
+        <label>
           <input type="checkbox" name="pass_save">次回ログインを省略する
-        </label> -->
-
+        </label>
+        パスワードを忘れた方は<a href="passRemindSend.php">コチラ</a>
       </form>
 
     </section>
