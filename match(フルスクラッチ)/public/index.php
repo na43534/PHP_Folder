@@ -9,7 +9,7 @@ require('../includes/header.php');
       <a href="#">ホーム</a>
       <a href="./signUp.php">ユーザー登録</a>
       <a href="./login.php">ログイン</a>
-      <a href="#">パスワードを忘れた場合</a>
+      <a href="./logout.php">ログアウト</a>
     </section>
   </div>
 
