@@ -7,54 +7,69 @@
   require_once '../includes/debug/functions.php';
   require_once '../includes/private/commonFunction.php';
 
-// 認証
-// ユーザー名とメールアドレスの照合
-if (isset($_POST['username']) && isset($_POST['email'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
+  // 認証
+  // ユーザー名とメールアドレスの照合
+  debugLogStart();
+  debug('「「「「「「「「「「「「「「「「「「「');
+  debug('パスワード変更メール');
+  debug('「「「「「「「「「「「「「');
 
-    // データベースからユーザー情報を取得
-    $query = "SELECT * FROM users WHERE username = '$username' AND email = '$email'";
-    $result = mysqli_query($conn, $query);
+  $email = $_POST['email'];
 
-    // ユーザーが存在しているか確認
-    if (mysqli_num_rows($result) > 0) {
-        // ユーザーが存在する場合
-        $user = mysqli_fetch_assoc($result);
+  // 入力確認
+  validRequired($email, 'email');
 
-        // 新しいパスワードの生成
-        $new_password = bin2hex(random_bytes(5));
+  if (empty($err_msg)) {
 
-        // パスワードの暗号化
-        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+    debug('バリテーション処理に入ります');
 
-        // 新しいパスワードをデータベースに保存
-        $update_query = "UPDATE users SET password = '$hashed_password' WHERE id = {$user['id']}";
-        if (mysqli_query($conn, $update_query)) {
-            // パスワードをメールで送信
-            $to = $email;
-            $subject = "新しいパスワード";
-            $message = "新しいパスワードは $new_password です。\n\nこのパスワードを使ってログインしてください。";
-            $headers = "From: no-reply@example.com";
-            if (mail($to, $subject, $message, $headers)) {
-                // パスワードをメールで送信できた場合
-                echo "新しいパスワードをメールで送信しました。";
-            } else {
-                // パスワードをメールで送信できなかった場合
-                echo "パスワードをメールで送信できませんでした。";
-            }
+    //emailの形式チェック
+    validEmail($email, 'email');
+    //emailの最大文字数チェック
+    validMaxLen($email, 'email');
+    //email重複チェック
+    // validEmailDup($email);
+
+    if(empty($err_msg)){
+
+      // 新しいパスワードの生成
+      $new_password = bin2hex(random_bytes(5));
+      // パスワードの暗号化
+      $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+      debug('送信判定に入ります');
+
+      try {
+        $pdo = new PDO(DSN, DB_USERNAME, DB_PASSWORD);
+        $sql = 'UPDATE users SET password = :pass WHERE email = :email AND delete_time = null';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(":pass",$hashed_password, PDO::PARAM_STR);
+        $result = $stmt->execute();
+      } catch (Exception $e) {
+        error_log('エラー発生:' . $e->getMessage());
+      }
+
+      if ($result) {
+        debug('送信処理に入ります');
+
+        // パスワードをメールで送信
+        $to = $email;
+        $subject = "新しいパスワード";
+        $message = "新しいパスワードは $new_password です。\n\nこのパスワードを使ってログインしてください。";
+        // メアドのドメインは example.com についての記事
+        // https://qiita.com/jnchito/items/198a2561a36c2c2ef5e3
+        $headers = "From: no-reply@example.com";
+        if (mail($to, $subject, $message, $headers)) {
+          debug('メール送信に成功しました');
+          // パスワードをメールで送信できた場合
+          echo "新しいパスワードをメールで送信しました。";
         } else {
-            // 新しいパスワードをデータベースに保存できなかった場合
-            echo "新しいパスワードを保存できませんでした。";
+          debug('メール送信に失敗しました');
+          // パスワードをメールで送信できなかった場合
+          echo "パスワードをメールで送信できませんでした。";
         }
-        } else {
-          // ユーザーが存在しない場合
-          echo "ユーザー名とメールアドレスが一致するユーザーが存在しません。";
-        }
-        } else {
-        // 不正なアクセス
-        echo "不正なアクセスです。";
-        }
+      }
+    }
 
 // DB切断
 mysqli_close($conn);

@@ -1,18 +1,16 @@
-<?
+<?php
   $siteTitle = 'パスワード変更';
   require_once '../private/commonFunctions.php';
-
-  require('../includes/header.php');
+  require_once '../includes/header.php';
 ?>
 
   <section>
     <div>
       <form action="../private/passRemindSendFunction.php" method="post">
         <p>ご指定のメールアドレス宛にパスワード再発行用のURLと認証キーをお送り致します。</p>
-
         <div>
           <?php
-          if(!empty($err_msg['common'])) echo $err_msg['common'];
+            if(!empty($err_msg['common'])) echo $err_msg['common'];
           ?>
         </div>
         <label>
