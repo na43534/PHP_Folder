@@ -1,5 +1,6 @@
 <?
   $siteTitle = 'SignUp';
+  require_once '../private/commonFunctions.php';
   require('../includes/header.php');
 ?>
 

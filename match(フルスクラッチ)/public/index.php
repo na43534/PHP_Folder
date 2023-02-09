@@ -10,6 +10,7 @@ require('../includes/header.php');
       <a href="./signUp.php">ユーザー登録</a>
       <a href="./login.php">ログイン</a>
       <a href="./logout.php">ログアウト</a>
+      <a href="./passRemindSend.php">パスワード変更</a>
     </section>
   </div>
 

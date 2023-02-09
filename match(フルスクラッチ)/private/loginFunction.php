@@ -5,6 +5,7 @@
   require_once '../includes/config/constants.php';
   require_once '../includes/debug/debug.php';
   require_once '../includes/debug/functions.php';
+  require_once '../includes/private/commonFunction.php';
 
   debugLogStart();
   debug('「「「「「「「「「「「「「「「「「「「');

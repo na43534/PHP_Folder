@@ -1,7 +1,5 @@
 <?php
 
-  ob_start();
-
   require_once '../includes/config/sessionConfig.php';
   require_once '../includes/config/db.php';
   require_once '../includes/config/constants.php';
@@ -44,9 +42,11 @@
     //パスワード（再入力）の最小文字数チェック
     validMinLen($password_re, 'password_re');
 
-    debug('送信判定に入ります');
+
 
     if(empty($err_msg)){
+
+      debug('送信判定に入ります');
 
       //パスワードとパスワード再入力が合っているかチェック
       validMatch($password, $password_re, 'password_re');
