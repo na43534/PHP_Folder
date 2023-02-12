@@ -64,7 +64,7 @@
           本メールアドレス宛にパスワードの再発行を致しました。
           下記のURLにて再発行パスワードをご入力頂き、ログインください。
 
-          ログインページ：http://localhost:8888/phpFolder/match(%e3%83%95%e3%83%ab%e3%82%b9%e3%82%af%e3%83%a9%e3%83%83%e3%83%81)/public/passRemindSend.php
+          ログインページ：http://localhost:8888/phpFolder/match(%e3%83%95%e3%83%ab%e3%82%b9%e3%82%af%e3%83%a9%e3%83%83%e3%83%81)/public/login.php
           再発行パスワード：{$hashed_password}
           ※ログイン後、パスワードのご変更をお願い致します
         EOT;
@@ -73,7 +73,7 @@
           //セッション削除
           session_unset();
           debug('セッション変数の中身：'.print_r($_SESSION,true));
-          header("Location:passRemindSend.php");
+          header("Location:login.php");
 
         } else {
           debug('メール送信に失敗しました');
