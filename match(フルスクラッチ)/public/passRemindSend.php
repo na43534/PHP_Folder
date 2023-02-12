@@ -27,7 +27,7 @@
         </div>
       </form>
     </div>
-    <a href="timeline.php">マイページに戻る</a>
+    <a href="myPage.php">マイページに戻る</a>
   </section>
 
 <?php
