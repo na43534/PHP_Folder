@@ -8,7 +8,7 @@
 
   debugLogStart();
   debug('「「「「「「「「「「「「「「「「「「「');
-  debug('アカウント作成処理');
+  debug('案件登録処理');
   debug('「「「「「「「「「「「「「');
 
   $email = $_POST['email'];
