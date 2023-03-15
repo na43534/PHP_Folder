@@ -17,16 +17,6 @@
         </div>
 
         <label>
-          Email
-          <input type="text" name="email" value="<?php echo getFormData('email'); ?>">
-        </label>
-        <div>
-          <?php
-            if(!empty($err_msg['email'])) echo $err_msg['email'];
-          ?>
-        </div>
-
-        <label>
           タイトル
           <input type="text" name="caseTitle" value="<?php echo getFormData('caseTitle'); ?>">
         </label>
