@@ -11,45 +11,26 @@
   debug('案件登録処理');
   debug('「「「「「「「「「「「「「');
 
-  $email = $_POST['email'];
-  $password = $_POST['password'];
-  $password_re = $_POST['password_re'];
+  $case_title = $_POST['caseTitle'];
+  $case_type = $_POST['caseType'];
+  $amount_of_money = $_POST['amountOfMoney'];
+  $case_about = $_POST['caseAbout'];
 
-  validRequired($email, 'email');
-  validRequired($password, 'password');
-  validRequired($password_re, 'password_re');
+  validRequired($case_title, 'caseTitle');
+  validRequired($case_type, 'caseType');
+  validRequired($amount_of_money, 'amountOfMoney');
+  validRequired($case_about, 'caseAbout');
 
   if(empty($err_msg)){
 
     debug('バリテーション処理に入ります');
 
-    //emailの形式チェック
-    validEmail($email, 'email');
-    //emailの最大文字数チェック
-    validMaxLen($email, 'email');
-    //email重複チェック
-    // validEmailDup($email);
-
-    //パスワードの半角英数字チェック
-    validHalf($password, 'password');
-    //パスワードの最大文字数チェック
-    validMaxLen($password, 'password');
-    //パスワードの最小文字数チェック
-    validMinLen($password, 'password');
-
-    //パスワード（再入力）の最大文字数チェック
-    validMaxLen($password_re, 'password_re');
-    //パスワード（再入力）の最小文字数チェック
-    validMinLen($password_re, 'password_re');
-
-
+    //memo:のちに追加予定
+    //一旦省略
 
     if(empty($err_msg)){
 
       debug('送信判定に入ります');
-
-      //パスワードとパスワード再入力が合っているかチェック
-      validMatch($password, $password_re, 'password_re');
 
       if(empty($err_msg)){
 
